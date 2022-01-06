@@ -1,4 +1,4 @@
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: scaffolder.backstage.io/v1beta2
 kind: Template
 metadata:
   name: generator-hotmart-freestyle
@@ -269,7 +269,7 @@ spec:
 
 ---
 
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: scaffolder.backstage.io/v1beta2
 kind: Template
 metadata:
   name: generator-hotmart-spring-api
@@ -559,7 +559,7 @@ spec:
 
 ---
 
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: scaffolder.backstage.io/v1beta2
 kind: Template
 metadata:
   name: generator-hotmart-spring-batch
