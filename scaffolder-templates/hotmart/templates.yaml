@@ -236,9 +236,9 @@ spec:
           name: '{{ parameters.name }}'
           description: '{{ parameters.description }}'
           impact: '{{ parameters.impact }}'
-          pci: {{ parameters.pci }}
-          lib: {{ parameters.lib }}
-          restricted: {{ parameters.restricted }}
+          pci: {{#if parameters.pci }}true{{else}}false{{/if}}
+          lib: {{#if parameters.lib }}true{{else}}false{{/if}}
+          restricted: {{#if parameters.restricted }}true{{else}}false{{/if}}
           owner: '{{ parameters.owner }}'
           squads: '{{ parameters.squads }}'
           system: '{{ parameters.system }}'
@@ -254,7 +254,7 @@ spec:
         repoUrl: 'github.com?owner=Hotmart-Org&repo={{ parameters.name }}'
         teams:
           - '{{ parameters.approvers }}'
-        restricted: {{ parameters.restricted }}
+        restricted: {{#if parameters.restricted }}true{{else}}false{{/if}}
 
     - id: register
       name: Register
