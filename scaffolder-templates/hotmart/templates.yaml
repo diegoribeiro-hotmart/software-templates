@@ -254,7 +254,7 @@ spec:
         repoUrl: 'github.com?owner=Hotmart-Org&repo={{ parameters.name }}'
         teams:
           - '{{ parameters.approvers }}'
-        restricted: {{toString parameters.restricted }}
+        restricted: {{if parameters.restricted 'true' 'false'}}
 
     - id: register
       name: Register
