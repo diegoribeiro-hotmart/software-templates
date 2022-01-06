@@ -61,10 +61,10 @@ spec:
       input:
         url: ./skeleton
         values:
-          name: "{{ parameters.name }}"
-          description: "{{ parameters.description }}"
-          destination: "{{ parseRepoUrl parameters.repoUrl }}"
-          owner: "{{ parameters.owner }}"
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          destination: ${{ parseRepoUrl parameters.repoUrl }}
+          owner: ${{ parameters.owner }}
 
     - id: publish
       name: Publish
@@ -72,15 +72,15 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: "This is {{ parameters.component_id }}"
-        repoUrl: "{{ parameters.repoUrl }}"
+        repoUrl: ${{ parameters.repoUrl }}
 
     - id: register
       name: Register
       action: hotmart:register
       input:
-        repoContentsUrl: "{{ steps.publish.output.repoContentsUrl }}"
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: "/catalog-info.yaml"
 
   output:
-    remoteUrl: "{{ steps.publish.output.remoteUrl }}"
-    entityRef: "{{ steps.register.output.entityRef }}"
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    entityRef: ${{ steps.register.output.entityRef }}
