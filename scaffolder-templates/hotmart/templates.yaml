@@ -1,4 +1,4 @@
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: backstage.io/v1beta2
 kind: Template
 metadata:
   name: generator-hotmart-freestyle
@@ -233,39 +233,39 @@ spec:
         args:
           - backstage
         options:
-          name: ${{ parameters.name }}
-          description: ${{ parameters.description }}
-          impact: ${{ parameters.impact }}
-          pci: ${{ parameters.pci }}
-          lib: ${{ parameters.lib }}
-          restricted: ${{ parameters.restricted }}
-          owner: ${{ parameters.owner }}
-          squads: ${{ parameters.squads }}
-          system: ${{ parameters.system }}
-          drone: ${{ parameters.drone }}
-          createInfraFor: ${{ parameters.createInfraFor }}
+          name: "{{ parameters.name }}"
+          description: "{{ parameters.description }}"
+          impact: "{{ parameters.impact }}"
+          pci: {{ parameters.pci }}
+          lib: {{ parameters.lib }}
+          restricted: {{ parameters.restricted }}
+          owner: "{{ parameters.owner }}"
+          squads: "{{ parameters.squads }}"
+          system: "{{ parameters.system }}"
+          drone: "{{ parameters.drone }}"
+          createInfraFor: "{{ parameters.createInfraFor }}"
           org: Hotmart-Org
 
     - id: publish
       name: Publish
       action: hotmart:publish
       input:
-        description: ${{ parameters.description }}
-        repoUrl: github.com?owner=Hotmart-Org&repo=${{ parameters.name }}
+        description: "{{ parameters.description }}"
+        repoUrl: "github.com?owner=Hotmart-Org&repo={{ parameters.name }}"
         teams:
-          - ${{ parameters.approvers }}
-        restricted: ${{ parameters.restricted }}
+          - "{{ parameters.approvers }}"
+        restricted: {{ parameters.restricted }}
 
     - id: register
       name: Register
       action: catalog:register
       input:
-        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: '/catalog-info.yaml'
+        repoContentsUrl: "{{ steps.publish.output.repoContentsUrl }}"
+        catalogInfoPath: "/catalog-info.yaml"
 
   output:
-    remoteUrl: ${{ steps.publish.output.remoteUrl }}
-    catalogUrl: https://backstage.hotmart.dev/catalog/default/component/${{ parameters.name }}
+    remoteUrl: "{{ steps.publish.output.remoteUrl }}"
+    catalogUrl: "https://backstage.hotmart.dev/catalog/default/component/{{ parameters.name }}"
 
 ---
 
