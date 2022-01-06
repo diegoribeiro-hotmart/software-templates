@@ -1,0 +1,865 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: generator-hotmart-freestyle
+  title: Free-Style
+  description: Free-Style
+spec:
+  owner: devops_team
+  type: service
+  parameters:
+    - title: Repository metadata
+      required:
+        - name
+        - description
+      properties:
+        name:
+          title: Repository name
+          type: string
+          description: Unique name of the repository
+          ui:field: EntityNamePicker
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        description:
+          title: Description
+          type: string
+          description: Description
+          ui:options:
+            rows: 5
+        impact:
+          title: Impact
+          type: string
+          description: What's the business impact if it's down?
+          ui:options:
+            rows: 5
+        pci:
+          title: PCI (is it a PCI project?)
+          description: Is it a PCI project?
+          type: boolean
+        lib:
+          title: LIB (is it an internal LIB?)
+          description: Is it an internal LIB?
+          type: boolean
+        restricted:
+          title: Restricted (can only the team see this code?)
+          description: Can only the team see this code?
+          type: boolean
+    - title: Owner structure
+      required:
+        - approvers
+        - owner
+        - system
+      properties:
+        approvers:
+          title: Approver
+          type: string
+          # items:
+          #   type: string
+          # ui:options:
+          #   orderable: false
+          description: Choose a Github team to approve PRs
+          # ui:field: TeamPicker
+          enum:
+            - AllForOne-approvers
+            - api-spring-boot-starter-approvers
+            - auto-tag-approvers
+            - Club-back-approvers
+            - Club-front-approvers
+            - Community-back-approvers
+            - Community-front-approvers
+            - Content-Creation-back-approvers
+            - Content-Creation-front-approvers
+            - Customer-Relationship-Products-back-approvers
+            - Customer-Relationship-Products-front-approvers
+            - Cyber-Security-approvers
+            - Data-Delivery-back-approvers
+            - Data-Delivery-front-approvers
+            - Data-Engineering-approvers
+            - Data-Science-approvers
+            - Data-Tracking-back-approvers
+            - Data-Tracking-front-approvers
+            - Data-Tracking-liquibase-approvers
+            - DesignOps-approvers
+            - developer-helpers-approvers
+            - Devmkt-approvers
+            - devops-approvers
+            - DevPrivacy-back-approvers
+            - DevPrivacy-front-approvers
+            - DevSec-Anti-Fraud-approvers
+            - DevSecAuth-back-approvers
+            - DevSecAuth-front-approvers
+            - Display-back-approvers
+            - Display-front-approvers
+            - Engineering-Operations-approvers
+            - eslint-config-uxcrafters-approvers
+            - eslint-config-uxcrafters-typescript-approvers
+            - Events-back-approvers
+            - Events-front-approvers
+            - generate-data-test-typescript-approvers
+            - golang-hotmart-helper-approvers
+            - golang-pipeline-utils-approvers
+            - Growth-back-approvers
+            - Handson-approvers
+            - Hiring-Challenges-approvers
+            - Home-&-Onboarding-back-approvers
+            - Home-&-Onboarding-front-approvers
+            - hot-commons-lib-approvers
+            - hot-integration-approvers
+            - hot-jms-spring-boot-starter-approvers
+            - hot-kinesis-spring-boot-starter-approvers
+            - hot-liquibase-approvers
+            - hot-log-spring-boot-starter-approvers
+            - hot-marketplace-entity-approvers
+            - hot-marketplace-vo-approvers
+            - hot-s3-spring-boot-starter-approvers
+            - hot-swagger-approvers
+            - hot-test-util-approvers
+            - hot-utils-approvers
+            - Hotpay-back-approvers
+            - Hotpay-front-approvers
+            - Hotpay-liquibase-approvers
+            - http-approvers
+            - ingest-kinesis-cdc-to-sqs-lambda-approvers
+            - ingest-kinesis-to-sns-lambda-approvers
+            - Integrations-back-approvers
+            - Integrations-front-approvers
+            - Internal-Integrations-back-approvers
+            - Internal-Integrations-front-approvers
+            - International-back-approvers
+            - International-front-approvers
+            - IT-Support-approvers
+            - Leads-Solutions-back-approvers
+            - Leads-Solutions-front-approvers
+            - lib-feature-check-approvers
+            - liquibase-marketplace-approvers
+            - locale-utils-lib-approvers
+            - lock-data-java-approvers
+            - Machine-Learning-approvers
+            - Mail-Builder-approvers
+            - Mail-Builder-back-approvers
+            - marketplace-lib-approvers
+            - maven-version-verifier-approvers
+            - Mobile-Engineering-back-approvers
+            - Mobile-Engineering-front-approvers
+            - newrelic-java-lettuce-approvers
+            - newrelic-java-mongodb-approvers
+            - node-logger-approvers
+            - Partners-back-approvers
+            - Partners-front-approvers
+            - Platform-Engineering-back-approvers
+            - Platform-Engineering-front-approvers
+            - Platform-Engineering-liquibase-approvers
+            - Playground-approvers
+            - Products-back-approvers
+            - Products-front-approvers
+            - request-filter-approvers
+            - Space-back-approvers
+            - Streaming-back-approvers
+            - Streaming-front-approvers
+            - Subscription-Solutions-back-approvers
+            - Subscription-Solutions-front-approvers
+            - Wallet-back-approvers
+            - Wallet-front-approvers
+            - Warranty-back-approvers
+            - Workspace-back-approvers
+            - Workspace-front-approvers
+            - xss-protection-java-approvers
+        owner:
+          title: Owner
+          type: string
+          description: Project owner
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        squads:
+          title: Squad
+          # type: array
+          type: string
+          description: Type the squad, if there is any one.
+          # items:
+          #   type: string
+          # ui:options:
+          #   orderable: false
+        system:
+          title: Product
+          type: string
+          description: Business product of the repository
+          ui:field: EntityPicker
+          ui:options:
+            allowedKinds:
+              - System
+            defaultKind: System
+    # - title: Environment
+    #   properties:
+    #     drone:
+    #       title: drone
+    #       description: 'Which drone would you like to activate?'
+    #       type: string
+    #       enum:
+    #         - https://drone.data.hotmart.com
+    #         - https://drone.security.hotmart.com
+    #         - https://drone.play.hotmart.com
+    #         - https://drone.sites.hotmart.com
+    #         - https://drone.devops.hotmart.com
+    #         - https://drone.bkf.hotmart.com
+    #         - https://drone.hp.hotmart.com
+    #         - https://drone.vulcano.hotmart.com
+    #         - https://drone.cb.hotmart.com
+    #         - https://drone.dsp.hotmart.com
+    #         - https://drone.integration.hotmart.com
+    #         - https://drone.spk.hotmart.com
+    #         - https://drone.auth.hotmart.com
+    #         - https://drone.hotpro.hotmart.com
+    #         - https://drone.secops.hotmart.com
+    #         - https://drone.hotwallet.hotmart.com
+    #         - https://drone.international.hotmart.com/
+    #         - https://drone.eks.klickpages.com.br/
+    #     createInfraFor:
+    #       title: Create kms and ecr for eks or lambda
+    #       description: Choose which kind of infra you want to create
+    #       type: string
+    #       enum:
+    #         - EKS
+    #         - Lambda
+
+  steps:
+    - id: templating
+      name: Templating freestyle
+      action: run:yeoman
+      input:
+        namespace: 'hotmart:freestyle'
+        args:
+          - backstage
+        options:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          impact: ${{ parameters.impact }}
+          pci: ${{ parameters.pci }}
+          lib: ${{ parameters.lib }}
+          restricted: ${{ parameters.restricted }}
+          owner: ${{ parameters.owner }}
+          squads: ${{ parameters.squads }}
+          system: ${{ parameters.system }}
+          drone: ${{ parameters.drone }}
+          createInfraFor: ${{ parameters.createInfraFor }}
+          org: Hotmart-Org
+
+    - id: publish
+      name: Publish
+      action: hotmart:publish
+      input:
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=Hotmart-Org&repo=${{ parameters.name }}
+        teams:
+          - ${{ parameters.approvers }}
+        restricted: ${{ parameters.restricted }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    catalogUrl: https://backstage.hotmart.dev/catalog/default/component/${{ parameters.name }}
+
+---
+
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: generator-hotmart-spring-api
+  title: spring-api
+  description: spring-api
+spec:
+  owner: devops_team
+  type: service
+  parameters:
+    - title: Repository metadata
+      required:
+        - name
+        - description
+      properties:
+        name:
+          title: Repository name
+          type: string
+          description: Unique name of the repository
+          ui:field: EntityNamePicker
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        description:
+          title: Description
+          type: string
+          description: Description
+          ui:options:
+            rows: 5
+        impact:
+          title: Impact
+          type: string
+          description: What's the business impact if it's down?
+          ui:options:
+            rows: 5
+        pci:
+          title: PCI (is it a PCI project?)
+          description: Is it a PCI project?
+          type: boolean
+        lib:
+          title: LIB (is it an internal LIB?)
+          description: Is it an internal LIB?
+          type: boolean
+        restricted:
+          title: Restricted (can only the team see this code?)
+          description: Can only the team see this code?
+          type: boolean
+    - title: Owner structure
+      required:
+        - approvers
+        - owner
+        - system
+      properties:
+        approvers:
+          title: Approver
+          type: string
+          # items:
+          #   type: string
+          # ui:options:
+          #   orderable: false
+          description: Choose a Github team to approve PRs
+          # ui:field: TeamPicker
+          enum:
+            - AllForOne-approvers
+            - api-spring-boot-starter-approvers
+            - auto-tag-approvers
+            - Club-back-approvers
+            - Club-front-approvers
+            - Community-back-approvers
+            - Community-front-approvers
+            - Content-Creation-back-approvers
+            - Content-Creation-front-approvers
+            - Customer-Relationship-Products-back-approvers
+            - Customer-Relationship-Products-front-approvers
+            - Cyber-Security-approvers
+            - Data-Delivery-back-approvers
+            - Data-Delivery-front-approvers
+            - Data-Engineering-approvers
+            - Data-Science-approvers
+            - Data-Tracking-back-approvers
+            - Data-Tracking-front-approvers
+            - Data-Tracking-liquibase-approvers
+            - DesignOps-approvers
+            - developer-helpers-approvers
+            - Devmkt-approvers
+            - devops-approvers
+            - DevPrivacy-back-approvers
+            - DevPrivacy-front-approvers
+            - DevSec-Anti-Fraud-approvers
+            - DevSecAuth-back-approvers
+            - DevSecAuth-front-approvers
+            - Display-back-approvers
+            - Display-front-approvers
+            - Engineering-Operations-approvers
+            - eslint-config-uxcrafters-approvers
+            - eslint-config-uxcrafters-typescript-approvers
+            - Events-back-approvers
+            - Events-front-approvers
+            - generate-data-test-typescript-approvers
+            - golang-hotmart-helper-approvers
+            - golang-pipeline-utils-approvers
+            - Growth-back-approvers
+            - Handson-approvers
+            - Hiring-Challenges-approvers
+            - Home-&-Onboarding-back-approvers
+            - Home-&-Onboarding-front-approvers
+            - hot-commons-lib-approvers
+            - hot-integration-approvers
+            - hot-jms-spring-boot-starter-approvers
+            - hot-kinesis-spring-boot-starter-approvers
+            - hot-liquibase-approvers
+            - hot-log-spring-boot-starter-approvers
+            - hot-marketplace-entity-approvers
+            - hot-marketplace-vo-approvers
+            - hot-s3-spring-boot-starter-approvers
+            - hot-swagger-approvers
+            - hot-test-util-approvers
+            - hot-utils-approvers
+            - Hotpay-back-approvers
+            - Hotpay-front-approvers
+            - Hotpay-liquibase-approvers
+            - http-approvers
+            - ingest-kinesis-cdc-to-sqs-lambda-approvers
+            - ingest-kinesis-to-sns-lambda-approvers
+            - Integrations-back-approvers
+            - Integrations-front-approvers
+            - Internal-Integrations-back-approvers
+            - Internal-Integrations-front-approvers
+            - International-back-approvers
+            - International-front-approvers
+            - IT-Support-approvers
+            - Leads-Solutions-back-approvers
+            - Leads-Solutions-front-approvers
+            - lib-feature-check-approvers
+            - liquibase-marketplace-approvers
+            - locale-utils-lib-approvers
+            - lock-data-java-approvers
+            - Machine-Learning-approvers
+            - Mail-Builder-approvers
+            - Mail-Builder-back-approvers
+            - marketplace-lib-approvers
+            - maven-version-verifier-approvers
+            - Mobile-Engineering-back-approvers
+            - Mobile-Engineering-front-approvers
+            - newrelic-java-lettuce-approvers
+            - newrelic-java-mongodb-approvers
+            - node-logger-approvers
+            - Partners-back-approvers
+            - Partners-front-approvers
+            - Platform-Engineering-back-approvers
+            - Platform-Engineering-front-approvers
+            - Platform-Engineering-liquibase-approvers
+            - Playground-approvers
+            - Products-back-approvers
+            - Products-front-approvers
+            - request-filter-approvers
+            - Space-back-approvers
+            - Streaming-back-approvers
+            - Streaming-front-approvers
+            - Subscription-Solutions-back-approvers
+            - Subscription-Solutions-front-approvers
+            - Wallet-back-approvers
+            - Wallet-front-approvers
+            - Warranty-back-approvers
+            - Workspace-back-approvers
+            - Workspace-front-approvers
+            - xss-protection-java-approvers
+        owner:
+          title: Owner
+          type: string
+          description: Project owner
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        squads:
+          title: Squad
+          # type: array
+          type: string
+          description: Type the squad, if there is any one.
+          # items:
+          #   type: string
+          # ui:options:
+          #   orderable: false
+        system:
+          title: Product
+          type: string
+          description: Business product of the repository
+          ui:field: EntityPicker
+          ui:options:
+            allowedKinds:
+              - System
+            defaultKind: System
+    - title: Environment
+      required:
+        - drone
+      properties:
+        drone:
+          title: drone
+          description: 'Which drone would you like to activate?'
+          type: string
+          enum:
+            - https://drone.data.hotmart.com
+            - https://drone.security.hotmart.com
+            - https://drone.play.hotmart.com
+            - https://drone.sites.hotmart.com
+            - https://drone.devops.hotmart.com
+            - https://drone.bkf.hotmart.com
+            - https://drone.hp.hotmart.com
+            - https://drone.vulcano.hotmart.com
+            - https://drone.cb.hotmart.com
+            - https://drone.dsp.hotmart.com
+            - https://drone.integration.hotmart.com
+            - https://drone.spk.hotmart.com
+            - https://drone.auth.hotmart.com
+            - https://drone.hotpro.hotmart.com
+            - https://drone.secops.hotmart.com
+            - https://drone.hotwallet.hotmart.com
+            - https://drone.international.hotmart.com
+            - https://drone.cp.hotmart.com
+        hostProduction:
+          title: What will be the hostname in production environment?
+          description: Type the production hostname. Default is "name".hotmart.com
+          type: string
+        hostStaging:
+          title: What will be the hostname in staging environment?
+          description: Type the staging hostname. Default is "name".buildstaging.com
+          type: string
+
+  steps:
+    - id: templating
+      name: Templating freestyle
+      action: run:yeoman
+      input:
+        namespace: 'hotmart:freestyle'
+        args:
+          - backstage
+        options:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          impact: ${{ parameters.impact }}
+          pci: ${{ parameters.pci }}
+          lib: ${{ parameters.lib }}
+          restricted: ${{ parameters.restricted }}
+          owner: ${{ parameters.owner }}
+          squads: ${{ parameters.squads }}
+          system: ${{ parameters.system }}
+          drone: ${{ parameters.drone }}
+          createInfraFor: ${{ parameters.createInfraFor }}
+          org: Hotmart-Org
+
+    - id: templating-spring-api
+      name: Templating spring-api
+      action: run:yeoman
+      input:
+        namespace: 'hotmart:spring-api'
+        args:
+          - backstage
+        options:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          drone: ${{ parameters.drone }}
+          hostProduction: ${{ parameters.hostProduction }}
+          hostStaging: ${{ parameters.hostStaging }}
+          system: ${{ parameters.system }}
+          team: ${{ parameters.owner }}
+
+    - id: publish
+      name: Publish
+      action: hotmart:publish
+      input:
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=Hotmart-Org&repo=${{ parameters.name }}
+        teams:
+          - ${{ parameters.approvers }}
+        restricted: ${{ parameters.restricted }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    catalogUrl: https://backstage.hotmart.dev/catalog/default/component/${{ parameters.name }}
+
+---
+
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: generator-hotmart-spring-batch
+  title: spring-batch
+  description: spring-batch
+spec:
+  owner: devops_team
+  type: service
+  parameters:
+    - title: Repository metadata
+      required:
+        - name
+        - description
+      properties:
+        name:
+          title: Repository name
+          type: string
+          description: Unique name of the repository
+          ui:field: EntityNamePicker
+          ui:autofocus: true
+          ui:options:
+            rows: 5
+        description:
+          title: Description
+          type: string
+          description: Description
+          ui:options:
+            rows: 5
+        impact:
+          title: Impact
+          type: string
+          description: What's the business impact if it's down?
+          ui:options:
+            rows: 5
+        pci:
+          title: PCI (is it a PCI project?)
+          description: Is it a PCI project?
+          type: boolean
+        lib:
+          title: LIB (is it an internal LIB?)
+          description: Is it an internal LIB?
+          type: boolean
+        restricted:
+          title: Restricted (can only the team see this code?)
+          description: Can only the team see this code?
+          type: boolean
+    - title: Owner structure
+      required:
+        - approvers
+        - owner
+        - system
+      properties:
+        approvers:
+          title: Approver
+          type: string
+          # items:
+          #   type: string
+          # ui:options:
+          #   orderable: false
+          description: Choose a Github team to approve PRs
+          # ui:field: TeamPicker
+          enum:
+            - AllForOne-approvers
+            - api-spring-boot-starter-approvers
+            - auto-tag-approvers
+            - Club-back-approvers
+            - Club-front-approvers
+            - Community-back-approvers
+            - Community-front-approvers
+            - Content-Creation-back-approvers
+            - Content-Creation-front-approvers
+            - Customer-Relationship-Products-back-approvers
+            - Customer-Relationship-Products-front-approvers
+            - Cyber-Security-approvers
+            - Data-Delivery-back-approvers
+            - Data-Delivery-front-approvers
+            - Data-Engineering-approvers
+            - Data-Science-approvers
+            - Data-Tracking-back-approvers
+            - Data-Tracking-front-approvers
+            - Data-Tracking-liquibase-approvers
+            - DesignOps-approvers
+            - developer-helpers-approvers
+            - Devmkt-approvers
+            - devops-approvers
+            - DevPrivacy-back-approvers
+            - DevPrivacy-front-approvers
+            - DevSec-Anti-Fraud-approvers
+            - DevSecAuth-back-approvers
+            - DevSecAuth-front-approvers
+            - Display-back-approvers
+            - Display-front-approvers
+            - Engineering-Operations-approvers
+            - eslint-config-uxcrafters-approvers
+            - eslint-config-uxcrafters-typescript-approvers
+            - Events-back-approvers
+            - Events-front-approvers
+            - generate-data-test-typescript-approvers
+            - golang-hotmart-helper-approvers
+            - golang-pipeline-utils-approvers
+            - Growth-back-approvers
+            - Handson-approvers
+            - Hiring-Challenges-approvers
+            - Home-&-Onboarding-back-approvers
+            - Home-&-Onboarding-front-approvers
+            - hot-commons-lib-approvers
+            - hot-integration-approvers
+            - hot-jms-spring-boot-starter-approvers
+            - hot-kinesis-spring-boot-starter-approvers
+            - hot-liquibase-approvers
+            - hot-log-spring-boot-starter-approvers
+            - hot-marketplace-entity-approvers
+            - hot-marketplace-vo-approvers
+            - hot-s3-spring-boot-starter-approvers
+            - hot-swagger-approvers
+            - hot-test-util-approvers
+            - hot-utils-approvers
+            - Hotpay-back-approvers
+            - Hotpay-front-approvers
+            - Hotpay-liquibase-approvers
+            - http-approvers
+            - ingest-kinesis-cdc-to-sqs-lambda-approvers
+            - ingest-kinesis-to-sns-lambda-approvers
+            - Integrations-back-approvers
+            - Integrations-front-approvers
+            - Internal-Integrations-back-approvers
+            - Internal-Integrations-front-approvers
+            - International-back-approvers
+            - International-front-approvers
+            - IT-Support-approvers
+            - Leads-Solutions-back-approvers
+            - Leads-Solutions-front-approvers
+            - lib-feature-check-approvers
+            - liquibase-marketplace-approvers
+            - locale-utils-lib-approvers
+            - lock-data-java-approvers
+            - Machine-Learning-approvers
+            - Mail-Builder-approvers
+            - Mail-Builder-back-approvers
+            - marketplace-lib-approvers
+            - maven-version-verifier-approvers
+            - Mobile-Engineering-back-approvers
+            - Mobile-Engineering-front-approvers
+            - newrelic-java-lettuce-approvers
+            - newrelic-java-mongodb-approvers
+            - node-logger-approvers
+            - Partners-back-approvers
+            - Partners-front-approvers
+            - Platform-Engineering-back-approvers
+            - Platform-Engineering-front-approvers
+            - Platform-Engineering-liquibase-approvers
+            - Playground-approvers
+            - Products-back-approvers
+            - Products-front-approvers
+            - request-filter-approvers
+            - Space-back-approvers
+            - Streaming-back-approvers
+            - Streaming-front-approvers
+            - Subscription-Solutions-back-approvers
+            - Subscription-Solutions-front-approvers
+            - Wallet-back-approvers
+            - Wallet-front-approvers
+            - Warranty-back-approvers
+            - Workspace-back-approvers
+            - Workspace-front-approvers
+            - xss-protection-java-approvers
+        owner:
+          title: Owner
+          type: string
+          description: Project owner
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        squads:
+          title: Squad
+          # type: array
+          type: string
+          description: Type the squad, if there is any one.
+          # items:
+          #   type: string
+          # ui:options:
+          #   orderable: false
+        system:
+          title: Product
+          type: string
+          description: Business product of the repository
+          ui:field: EntityPicker
+          ui:options:
+            allowedKinds:
+              - System
+            defaultKind: System
+    - title: Environment
+      required:
+        - drone
+      properties:
+        drone:
+          title: drone
+          description: 'Which drone would you like to activate?'
+          type: string
+          enum:
+            - https://drone.data.hotmart.com
+            - https://drone.security.hotmart.com
+            - https://drone.play.hotmart.com
+            - https://drone.sites.hotmart.com
+            - https://drone.devops.hotmart.com
+            - https://drone.bkf.hotmart.com
+            - https://drone.hp.hotmart.com
+            - https://drone.vulcano.hotmart.com
+            - https://drone.cb.hotmart.com
+            - https://drone.dsp.hotmart.com
+            - https://drone.integration.hotmart.com
+            - https://drone.spk.hotmart.com
+            - https://drone.auth.hotmart.com
+            - https://drone.hotpro.hotmart.com
+            - https://drone.secops.hotmart.com
+            - https://drone.hotwallet.hotmart.com
+            - https://drone.international.hotmart.com
+            - https://drone.cp.hotmart.com
+
+  steps:
+    - id: templating
+      name: Templating freestyle
+      action: run:yeoman
+      input:
+        namespace: 'hotmart:freestyle'
+        args:
+          - backstage
+        options:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          impact: ${{ parameters.impact }}
+          pci: ${{ parameters.pci }}
+          lib: ${{ parameters.lib }}
+          restricted: ${{ parameters.restricted }}
+          owner: ${{ parameters.owner }}
+          squads: ${{ parameters.squads }}
+          system: ${{ parameters.system }}
+          drone: ${{ parameters.drone }}
+          createInfraFor: ${{ parameters.createInfraFor }}
+          org: Hotmart-Org
+
+    - id: templating-spring
+      name: Templating spring
+      action: run:yeoman
+      input:
+        namespace: 'hotmart:spring-api'
+        args:
+          - backstage
+        options:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          drone: ${{ parameters.drone }}
+          system: ${{ parameters.system }}
+          team: ${{ parameters.owner }}
+
+    - id: templating-spring-batch
+      name: Templating spring-batch
+      action: run:yeoman
+      input:
+        namespace: 'hotmart:spring-batch'
+        args:
+          - backstage
+          - --force
+        options:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          drone: ${{ parameters.drone }}
+          system: ${{ parameters.system }}
+
+    - id: publish
+      name: Publish
+      action: hotmart:publish
+      input:
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=Hotmart-Org&repo=${{ parameters.name }}
+        teams:
+          - ${{ parameters.approvers }}
+        restricted: ${{ parameters.restricted }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    catalogUrl: https://backstage.hotmart.dev/catalog/default/component/${{ parameters.name }}
+
+# ---
+
+# TODO
+# free-style: compliance repo, catalog, jira
+# free-style-eks: free-style + drone + eks + ecr
+# free-style-lambda: free-style + drone + eks + ecr
+# spring-api: free-style-eks + spring api
+# spring-batch: free-style-eks + spring batch
+# spring-lambda: free-style-lambda + spring
+# nodejs: free-style-eks + nodejs
+# nodejs-lambda: free-style-lambda + nodejs
+# python-lambda: free-style-lambda + python
