@@ -191,31 +191,31 @@ spec:
             allowedKinds:
               - System
             defaultKind: System
-    # - title: Environment
-    #   properties:
-    #     drone:
-    #       title: drone
-    #       description: 'Which drone would you like to activate?'
-    #       type: string
-    #       enum:
-    #         - https://drone.data.hotmart.com
-    #         - https://drone.security.hotmart.com
-    #         - https://drone.play.hotmart.com
-    #         - https://drone.sites.hotmart.com
-    #         - https://drone.devops.hotmart.com
-    #         - https://drone.bkf.hotmart.com
-    #         - https://drone.hp.hotmart.com
-    #         - https://drone.vulcano.hotmart.com
-    #         - https://drone.cb.hotmart.com
-    #         - https://drone.dsp.hotmart.com
-    #         - https://drone.integration.hotmart.com
-    #         - https://drone.spk.hotmart.com
-    #         - https://drone.auth.hotmart.com
-    #         - https://drone.hotpro.hotmart.com
-    #         - https://drone.secops.hotmart.com
-    #         - https://drone.hotwallet.hotmart.com
-    #         - https://drone.international.hotmart.com/
-    #         - https://drone.eks.klickpages.com.br/
+    - title: Environment
+      properties:
+       drone:
+         title: drone
+         description: 'Which drone would you like to activate?'
+         type: string
+         enum:
+           - https://drone.data.hotmart.com
+           - https://drone.security.hotmart.com
+           - https://drone.play.hotmart.com
+           - https://drone.sites.hotmart.com
+           - https://drone.devops.hotmart.com
+           - https://drone.bkf.hotmart.com
+           - https://drone.hp.hotmart.com
+           - https://drone.vulcano.hotmart.com
+           - https://drone.cb.hotmart.com
+           - https://drone.dsp.hotmart.com
+           - https://drone.integration.hotmart.com
+           - https://drone.spk.hotmart.com
+           - https://drone.auth.hotmart.com
+           - https://drone.hotpro.hotmart.com
+           - https://drone.secops.hotmart.com
+           - https://drone.hotwallet.hotmart.com
+           - https://drone.international.hotmart.com/
+           - https://drone.eks.klickpages.com.br/
     #     createInfraFor:
     #       title: Create kms and ecr for eks or lambda
     #       description: Choose which kind of infra you want to create
